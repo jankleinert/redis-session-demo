@@ -4,6 +4,14 @@ Demo app that shows session management for a Node.js app using express-sessions 
 The app queries an API for ML-generated craft beer names and displays them on the page. There is a session management panel that displays session ID, time until the session expires, and the number of beer names viewed in that session. 
 
 # how to run
+
+Make sure you have have Redis server running locally:
+
+```
+redis-server
+```
+Then clone this repo, run npm install and then run it in dev mode:
+
 ```
 git clone https://github.com/jankleinert/redis-session-demo
 cd redis-session-demo
