@@ -13,7 +13,7 @@ npm run dev
 
 Then in your browser, go to http://localhost:3000. It should look something like this:
 
-<img>
+![screenshot](screenshot.png)
 
 # how it works
 This demo uses [express-session](https://github.com/expressjs/session) for session management and [connect-redis](https://github.com/tj/connect-redis) as the session store.
