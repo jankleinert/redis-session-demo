@@ -5,7 +5,7 @@ const request = require('request');
 /* GET request for home page */
 router.get('/', function(req, res, next) {
   var expireTime = new Date(req.session.cookie.expires) - new Date(); 
-  res.render('index', { title: 'Craft Beer Names', sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: null });
+  res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: null });
 });
 
 
@@ -19,14 +19,14 @@ router.post('/', function (req, res) {
     var expireTime = new Date(req.session.cookie.expires) - new Date();   
     
     if(err){
-      res.render('index', {title: req.sessionID, sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: 'Error, please try again'});
+      res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: 'Error, please try again'});
     } else {
       var beerInfo = JSON.parse(body)
 
       if(beerInfo.status != 200){
-        res.render('index', {title: req.sessionID, sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: 'Error, please try again'});
+        res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: 'Error, please try again'});
       } else {
-        res.render('index', {title: req.sessionID, sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: beerInfo.data.name, beerStyle: beerInfo.data.style, error: null});
+        res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: beerInfo.data.name, beerStyle: beerInfo.data.style, error: null});
       }
     }
   });

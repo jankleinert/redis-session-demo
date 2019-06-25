@@ -8,6 +8,7 @@ The app queries an API for ML-generated craft beer names and displays them on th
 git clone https://github.com/jankleinert/redis-session-demo
 cd redis-session-demo
 npm install
+export SESSION_SECRET=<some value you choose>
 npm run dev
 ```
 

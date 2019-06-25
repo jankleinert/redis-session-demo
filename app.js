@@ -29,7 +29,7 @@ app.use(session({
   },
   store: new redisStore({ host: 'localhost', port: 6379, client: redisClient }),
   name: '_redisDemo', 
-  secret: 'you should use a better secret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   cookie: { secure: false, maxAge: 60000 }, // Set to expire in 1 minute for demo purposes
   saveUninitialized: true
