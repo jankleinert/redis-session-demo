@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title= 'Craft Beer Name Demo'
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/javascripts/jquery-3.4.1.slim.min.js')
+    script(src='/javascripts/bootstrap.bundle.min.js')
+  body.text-center
+    div.cover-container.d-flex.h-100.p-3.mx-auto.flex-column
+      header.masthead.mb-auto 
+        .inner
+          h3.masthead-brand Craft Beer Name Demo
+
+      main.inner.cover(role='main')
+        block content
+      footer.mastfoot.mt-auto
+        .inner
+          p 
+            a(href='https://www.craftbeernamegenerator.com/about.html') This demo uses the craftbeernamegenerator.com API
+    
+
