@@ -1,0 +1,22 @@
+{
+  "name": "redis-session-demo",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "connect-redis": "^3.4.1",
+    "express": "~4.16.1",
+    "express-session": "^1.16.2",
+    "http-errors": "~1.6.3",
+    "pug": "^2.0.4",
+    "redis": "^2.8.0",
+    "request": "^2.88.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}

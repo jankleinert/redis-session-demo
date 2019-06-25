@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1= 'Click To Generate a Craft Beer Name!'
+  .lead
+    fieldset
+      form#beer-form(action='/', method='post')
+        input.btn.btn-lg.btn-secondary(type='submit', value='Pour Another')
+      if beerName
+        p.beername= beerName
+        p.beerstyle= '( ' +  beerStyle + ' )'
+      else
+        p.beername= ''
+        p.beerstyle= ''
+      if error
+        p= error
+  
+  .session
+    p Session Info
+    if sessionID
+      p= 'Session ID: ' + sessionID 
+    if sessionExpireTime
+      p= 'Session expires in ' + sessionExpireTime/1000 + ' seconds'
+    if beersViewed
+      p= 'Beers viewed in this session: ' + beersViewed
+
