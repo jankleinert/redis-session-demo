@@ -1,0 +1,14 @@
+.session
+    p Session Info
+    if sessionID
+      p= 'Session ID: ' + sessionID 
+    if sessionExpireTime
+      p= 'Session expires in ' + Math.round(sessionExpireTime/1000) + ' seconds'
+    if beersViewed
+      p= 'Beers viewed in this session: ' + beersViewed
+    else 
+      p= 'No beers viewed yet in this session.'
+    if isAuthenticated
+      p= 'Logged in as: ' + email
+    else  
+      p= 'Not logged in'

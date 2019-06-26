@@ -7,11 +7,15 @@
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "connect-redis": "^3.4.1",
     "debug": "^4.1.1",
     "express": "~4.16.1",
     "express-session": "^1.16.2",
     "http-errors": "~1.6.3",
+    "mysql": "^2.17.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pug": "^2.0.4",
     "redis": "^2.8.0",
     "request": "^2.88.0",

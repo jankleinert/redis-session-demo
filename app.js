@@ -6,9 +6,68 @@ const session = require('express-session');
 const redis = require('redis');
 const redisStore = require('connect-redis')(session);
 const bodyParser = require('body-parser');
+const mysql = require('mysql');
 const indexRouter = require('./routes/index');
+const loginRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcryptjs');
+
+const mysqlConnection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'redis_session_demo'
+});
+ 
+
+mysqlConnection.connect(function(err) {
+  if (err) {
+    console.log('error connecting to mysql: ' + err.stack);
+    return;
+  }
+});
+
 
 const redisClient = redis.createClient();
+
+// configure passport.js to use the local strategy
+passport.use(new LocalStrategy(
+  { usernameField: 'email' },
+  (email, password, done) => {
+    mysqlConnection.query('SELECT * FROM users WHERE email = ?', [email], function (error, results, fields) {
+      if (error) throw error;
+      console.log(results);
+      var user = results[0];
+      if (!user) {
+        return done(null, false, { message: 'Invalid credentials.\n' });
+      }
+      if (!bcrypt.compareSync(password, user.password)) {
+        return done(null, false, { message: 'Invalid credentials.\n' });
+      }
+      return done(null, user);
+    });
+  }
+));
+
+// tell passport how to serialize the user
+passport.serializeUser((user, done) => {
+  console.log('Inside serializeUser callback. User id is saved to the session store here')
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  console.log('Inside deserializeUser callback')
+
+  mysqlConnection.query('SELECT * FROM users WHERE id = ?', [id], function (error, results, fields) {
+    if (error) {
+      done(error, false);
+    }
+    console.log(results);
+    done(null, results[0]);  
+  });
+});
 
 var app = express();
 
@@ -34,8 +93,12 @@ app.use(session({
   cookie: { secure: false, maxAge: 60000 }, // Set to expire in 1 minute for demo purposes
   saveUninitialized: true
 }))
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
+app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 
 // error handling for 404
 app.use(function(req, res, next) {

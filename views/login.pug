@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= 'Log In'
+  .lead
+    form#beer-form(action='/login', method='post')
+      .form-group
+        input(name='email', type='text', placeholder='Email', required='')
+      .form-group
+        input(name='password', type='password', placeholder='Password', required='')
+      button.btn.btn-primary(type='submit')= 'Log In'
+    if error
+      p= error
+  
+  include session.pug

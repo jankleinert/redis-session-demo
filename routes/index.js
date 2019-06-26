@@ -4,8 +4,9 @@ const request = require('request');
 
 /* GET request for home page */
 router.get('/', function(req, res, next) {
+  console.log('is authenticated? ' + req.isAuthenticated());
   var expireTime = new Date(req.session.cookie.expires) - new Date(); 
-  res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: null });
+  res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: null, isAuthenticated: req.isAuthenticated(), email: (req.isAuthenticated() ? req.user.email : null) });
 });
 
 
@@ -19,14 +20,14 @@ router.post('/', function (req, res) {
     var expireTime = new Date(req.session.cookie.expires) - new Date();   
     
     if(err){
-      res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: 'Error, please try again'});
+      res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: 'Error, please try again', isAuthenticated: req.isAuthenticated(), email: (req.isAuthenticated() ? req.user.email : null)});
     } else {
       var beerInfo = JSON.parse(body)
 
       if(beerInfo.status != 200){
-        res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: 'Error, please try again'});
+        res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: 'Error, please try again', isAuthenticated: req.isAuthenticated(), email: (req.isAuthenticated() ? req.user.email : null)});
       } else {
-        res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: beerInfo.data.name, beerStyle: beerInfo.data.style, error: null});
+        res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: beerInfo.data.name, beerStyle: beerInfo.data.style, error: null, isAuthenticated: req.isAuthenticated(), email: (req.isAuthenticated() ? req.user.email : null)});
       }
     }
   });
