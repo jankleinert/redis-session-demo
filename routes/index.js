@@ -4,7 +4,6 @@ const request = require('request');
 
 /* GET request for home page */
 router.get('/', function(req, res, next) {
-  console.log('is authenticated? ' + req.isAuthenticated());
   var expireTime = new Date(req.session.cookie.expires) - new Date(); 
   res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: null, isAuthenticated: req.isAuthenticated(), email: (req.isAuthenticated() ? req.user.email : null) });
 });

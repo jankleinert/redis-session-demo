@@ -17,7 +17,7 @@ const bcrypt = require('bcryptjs');
 const mysqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: '', // demo purposes only
     database: 'redis_session_demo'
 });
  
@@ -38,7 +38,6 @@ passport.use(new LocalStrategy(
   (email, password, done) => {
     mysqlConnection.query('SELECT * FROM users WHERE email = ?', [email], function (error, results, fields) {
       if (error) throw error;
-      console.log(results);
       var user = results[0];
       if (!user) {
         return done(null, false, { message: 'Invalid credentials.\n' });
@@ -53,18 +52,14 @@ passport.use(new LocalStrategy(
 
 // tell passport how to serialize the user
 passport.serializeUser((user, done) => {
-  console.log('Inside serializeUser callback. User id is saved to the session store here')
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log('Inside deserializeUser callback')
-
   mysqlConnection.query('SELECT * FROM users WHERE id = ?', [id], function (error, results, fields) {
     if (error) {
       done(error, false);
     }
-    console.log(results);
     done(null, results[0]);  
   });
 });
@@ -90,7 +85,7 @@ app.use(session({
   name: '_redisDemo', 
   secret: process.env.SESSION_SECRET,
   resave: false,
-  cookie: { secure: false, maxAge: 60000 }, // Set to expire in 1 minute for demo purposes
+  cookie: { secure: false, maxAge: 60000 }, // Set secure to false and to expire in 1 minute for demo purposes
   saveUninitialized: true
 }))
 app.use(passport.initialize());
