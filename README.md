@@ -1,11 +1,11 @@
 # redis-session-demo overview
-Demo app that shows session management for a Node.js app using express-sessions and connect-redis.
+Demo app that shows session management for a Node.js app using express-sessions and connect-redis. Originally created for Redis Day NYC 2019: https://events.redislabs.com/sessions/life-user-session/
 
 The app queries an API for ML-generated craft beer names and displays them on the page. There is a session management panel that displays session ID, time until the session expires, and the number of beer names viewed in that session. 
 
 # how to run
 
-Make sure you have have Redis server running locally:
+Make sure you have have Redis server running locally (and mysqld):
 
 ```
 redis-server
