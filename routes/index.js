@@ -4,7 +4,7 @@ const request = require('request');
 
 /* GET request for home page */
 router.get('/', function(req, res, next) {
-  var expireTime = new Date(req.session.cookie.expires) - new Date(); 
+  var expireTime = req.session.cookie.maxAge / 1000; 
   res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: null });
 });
 
@@ -16,7 +16,7 @@ router.post('/', function (req, res) {
     } else {
         req.session.views = 1
     }
-    var expireTime = new Date(req.session.cookie.expires) - new Date();   
+    var expireTime = req.session.cookie.maxAge / 1000;   
     
     if(err){
       res.render('index', { sessionID: req.sessionID, sessionExpireTime: expireTime, beersViewed: req.session.views, beerName: null, beerStyle: null, error: 'Error, please try again'});
