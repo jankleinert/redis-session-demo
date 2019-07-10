@@ -14,13 +14,4 @@ block content
         p.beerstyle= ''
       if error
         p= error
-  
-  .session
-    p Session Info
-    if sessionID
-      p= 'Session ID: ' + sessionID 
-    if sessionExpireTime
-      p= 'Session expires in ' + Math.round(sessionExpireTime) + ' seconds'
-    if beersViewed
-      p= 'Beers viewed in this session: ' + beersViewed
 
