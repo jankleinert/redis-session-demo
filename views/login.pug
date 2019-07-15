@@ -3,7 +3,7 @@ extends layout
 block content
   h1= 'Log In'
   .lead
-    form#beer-form(action='/login', method='post')
+    form#login-form(action='/login', method='post')
       .form-group
         input(name='email', type='text', placeholder='Email', required='')
       .form-group
